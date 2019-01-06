@@ -27,7 +27,9 @@ public class DiscordDeezerIntegration {
                 if (wText.isEmpty()) {
                     return true;
                 }
-
+                if (wText.contains("pa1007")) {
+                    return true;
+                }
                 if (wText.contains("Deezer")) {
                     s[0] = wText;
                 }
