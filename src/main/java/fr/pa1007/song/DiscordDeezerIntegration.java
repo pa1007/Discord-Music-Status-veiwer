@@ -7,8 +7,11 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinUser;
+import java.io.IOException;
 
 public class DiscordDeezerIntegration {
+
+    private static String lastName = "";
 
     private static String getDeezeername() {
         final User32 user32 = User32.INSTANCE;
@@ -71,10 +74,30 @@ public class DiscordDeezerIntegration {
     }
 
     private static void update(DiscordRPC lib, DiscordRichPresence presence) {
-        String   s   = getDeezeername();
-        String[] all = s.split("-");
-        presence.details = all[0];
-        presence.state = all[1];
-        lib.Discord_UpdatePresence(presence);
+
+        String s = getDeezeername();
+        //Unused now because the Discord Rich presence is not sporting this but may be done in the future
+        if (!lastName.equals(s)) {
+            String[] all = s.split("-");
+            /*try {
+            presence.largeImageText = DeezerApi.getImage(all[0], all[1]);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }*/
+            try {
+                presence.smallImageKey = DeezerApi.getLink(all[0], all[1]);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            // but now we will give a link to the deezer track url
+            presence.largeImageText = all[0];
+            presence.details = all[0];
+            presence.state = all[1];
+            lib.Discord_UpdatePresence(presence);
+            lastName = s;
+            System.out.println("change done");
+        }
     }
 }
