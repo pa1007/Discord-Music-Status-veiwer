@@ -33,6 +33,12 @@ public class DiscordDeezerIntegration {
                 if (wText.contains("pa1007")) {
                     return true;
                 }
+                if (wText.contains("Google")
+                    || wText.contains("Mozilla")
+                    || wText.contains("Microsoft Edge")
+                    || wText.contains("Internet Explorer")) {
+                    return true;
+                }
                 if (wText.contains("Deezer")) {
                     s[0] = wText;
                 }
@@ -43,17 +49,15 @@ public class DiscordDeezerIntegration {
     }
 
     public static void main(String[] args) {
-        DiscordRPC          lib           = DiscordRPC.INSTANCE;
-        DiscordRichPresence presence      = new DiscordRichPresence();
-        String              applicationId = args.length < 1 ? "482312958274437136" : args[0];
-        String              steamId       = args.length < 2 ? "LmLyieQ9mJ0-c-_UfCz2eEWwdVRu4I1b" : args[1];
-
-        DiscordEventHandlers handlers = new DiscordEventHandlers();
-        handlers.ready = (user) -> System.out.println("Ready!");
-
+        DiscordRPC           lib           = DiscordRPC.INSTANCE;
+        DiscordRichPresence  presence      = new DiscordRichPresence();
+        String               applicationId = "482312958274437136";
+        String               steamId       = "LmLyieQ9mJ0-c-_UfCz2eEWwdVRu4I1b";
+        DiscordEventHandlers handlers      = new DiscordEventHandlers();
         lib.Discord_Initialize(applicationId, handlers, true, steamId);
-
         presence.startTimestamp = System.currentTimeMillis() / 1000; // epoch second
+        presence.largeImageKey = "deezerbars";
+        presence.smallImageKey = "logo";
         presence.details = "Listening Music";
         presence.state = "Music - Author";
         lib.Discord_UpdatePresence(presence);
@@ -63,7 +67,7 @@ public class DiscordDeezerIntegration {
                 lib.Discord_RunCallbacks();
                 update(lib, presence);
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                 }
                 catch (InterruptedException e) {
                     lib.Discord_Shutdown();
