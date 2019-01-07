@@ -22,7 +22,7 @@ Discord allow the user to display an RPC under there username like
 
 * The name of the group/person who creates this 
 
-* Time spend on listening 
+* Time spend on listening or time spend on listening the music
 
 
 
@@ -40,7 +40,12 @@ The project implement the dependencies [java discord rpc](https://github.com/Min
 
 and [Jna](https://github.com/java-native-access/jna)
 
+## Config Window :
 
+![Config](https://puu.sh/Ct6dN/8d5859c8d4.png)
+This window show you the Album photo, 
+
+And You can choose if you want to display the time remaining of the song you listen (Take on song to update)
 
 ## Update :
 
