@@ -45,7 +45,7 @@ and [Jna](https://github.com/java-native-access/jna)
 ![Config](https://puu.sh/Ct6dN/8d5859c8d4.png)
 This window show you the Album photo, 
 
-And You can choose if you want to display the time remaining of the song you listen (Take on song to update)
+And You can choose if you want to display the time remaining of the song you listen (Take one song to update)
 
 ## Update :
 
