@@ -18,28 +18,36 @@ public class DeezerApi {
             new GsonBuilder().serializeNulls().setPrettyPrinting().create();
     private static String apiURL = "https://api.deezer.com/search/track?strict=on&q=";
 
-    public static String getImage(String s, String artist) throws IOException {
-        String a     = apiURL + s.replace(" ", "%20");
+    /**
+     * This method will give the program if found the datum of the song you want
+     *
+     * @param title  The title of the song to find
+     * @param artist The artist of the song you search
+     *
+     * @return {@link fr.pa1007.song.deezerapi.Datum Datum} The data with the song or null if not find
+     *
+     * @throws IOException can throw if the url is false ( give by {@link #getSongs(String)} )
+     */
+    public static Datum findData(String title, String artist) throws IOException {
+        String a     = apiURL + title.replace(" ", "%20").toLowerCase();
         Song   songs = getSongs(a);
         for (Datum datum : songs.getData()) {
-            if (datum.getArtist().getName().equals(artist) && datum.getTitle().contains(s)) {
-                return datum.getAlbum().getCoverMedium();
+            if (datum.getArtist().getName().replace(" ", "").equals(artist.replace(" ", ""))) {
+                return datum;
             }
         }
-        return "NotFound";
+        return null;
     }
 
-    public static String getLink(String s, String artist) throws IOException {
-        String a     = apiURL + s.replace(" ", "%20");
-        Song   songs = getSongs(a);
-        for (Datum datum : songs.getData()) {
-            if (datum.getArtist().getName().equals(artist) && datum.getTitle().contains(s)) {
-                return datum.getLink();
-            }
-        }
-        return "NotFound";
-    }
-
+    /**
+     * This method will search all the song with a given URL
+     *
+     * @param a The deezer api url, end with <code>&q=</code> and the name of the song
+     *
+     * @return {@link fr.pa1007.song.deezerapi.Song Song} type from the deezer API
+     *
+     * @throws IOException can be throw if the url is not valid
+     */
     private static Song getSongs(String a) throws IOException {
         URL  URL_UPDATE    = new URL(a);
         Type clazzListType = new TypeToken<Song>() {}.getType();
