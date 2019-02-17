@@ -1,3 +1,5 @@
+# Broken in the last Deezer Application update (4.2.4)
+
 # Discord-Music-Status-viewer
 
 To see your Deezer song on discord (This project is not supported or created by Deezer) 
